@@ -4,13 +4,14 @@ from google.adk.tools.mcp_tool.conversion_utils import adk_to_mcp_tool_type
 from mcp import types as mcp_types
 from mcp.server.lowlevel import Server
 from config import SELLER_WALLET
+from typing import Optional
 
 # --- Settings ---
 FACILITATOR_URL = "http://latinum.ai/api/solana_facilitator"
 PRICE_LAMPORTS = 50
 
 # --- Tool Logic ---
-def get_weather(city: str, signed_b64_payload: str) -> dict:
+def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
     print(f"📡 get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
 
     if city == "London":
