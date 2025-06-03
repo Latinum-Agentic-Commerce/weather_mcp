@@ -14,7 +14,7 @@ PRICE_LAMPORTS = 50
 def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
     print(f"📡 get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
 
-    if city == "London":
+    if city.lower() == "london":
         res = requests.post(FACILITATOR_URL, json={
             "signedTransactionB64": signed_b64_payload,
             "expectedRecipient": SELLER_WALLET,
