@@ -24,7 +24,7 @@ def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
         if res.status_code != 200 or not res.json().get("allowed"):
             return {
                 "success": False,
-                "message": f"💳 Payment required: {PRICE_LAMPORTS} lamports to {SELLER_WALLET}. Please provide a signed transaction. If you don't have a wallet, try Latinum MCP Wallet at https://latinum.ai/wallet/latinum_wallet_mcp. Instructions in: https://latinum.ai/articles/latinum-wallet",
+                "message": res.json().get("error")
             }
 
     return {
