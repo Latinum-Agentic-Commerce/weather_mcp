@@ -12,7 +12,7 @@ PRICE_LAMPORTS = 50
 
 # --- Tool Logic ---
 def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
-    print(f"📡 get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
+    print(f"get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
 
     if city.lower() == "london":
         res = requests.post(FACILITATOR_URL, json={
@@ -29,7 +29,7 @@ def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
 
     return {
         "success": True,
-        "message": f"☀️ The weather in {city} is sunny!"
+        "message": f"The weather in {city} is sunny!"
     }
 
 # --- Server Builder ---
