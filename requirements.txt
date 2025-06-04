@@ -1,3 +1,4 @@
 mcp
 google-adk
 python-dotenv
+deprecated # needed by Google ADK but not in requirments
