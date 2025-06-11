@@ -1,4 +1,5 @@
 mcp
 google-adk
 python-dotenv
+aiohttp
 deprecated # needed by Google ADK but not in requirments

@@ -1,38 +1,37 @@
+# tool.py
 import requests
+from typing import Optional
 from google.adk.tools.function_tool import FunctionTool
 from google.adk.tools.mcp_tool.conversion_utils import adk_to_mcp_tool_type
 from mcp import types as mcp_types
 from mcp.server.lowlevel import Server
 from config import SELLER_WALLET
-from typing import Optional
+from utils.utils import fetch_weather
 
-# --- Settings ---
 FACILITATOR_URL = "http://latinum.ai/api/solana_facilitator"
 PRICE_LAMPORTS = 50
 
-# --- Tool Logic ---
-def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
+async def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
     print(f"get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
 
-    if city.lower() == "london":
+    if city.lower() != "dublin":
         res = requests.post(FACILITATOR_URL, json={
             "signedTransactionB64": signed_b64_payload,
             "expectedRecipient": SELLER_WALLET,
             "expectedAmountLamports": PRICE_LAMPORTS
         })
-
         if res.status_code != 200 or not res.json().get("allowed"):
             return {
                 "success": False,
                 "message": res.json().get("error")
             }
 
-    return {
-        "success": True,
-        "message": f"The weather in {city} is sunny!"
-    }
+    weather_message = await fetch_weather(city)
+    if not weather_message:
+        return {"success": False, "message": "❌ Could not fetch weather."}
 
-# --- Server Builder ---
+    return {"success": True, "message": weather_message}
+
 def build_weather_mcp() -> Server:
     tool = FunctionTool(get_weather)
     server = Server("weather-mcp")

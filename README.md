@@ -1,6 +1,6 @@
 # 🌤️ Weather MCP Tool (Latinum Paywalled Agent Tool)
 
-A minimal Model Context Protocol (MCP) tool that provides weather info for any city. Access to **London** is **paywalled** and requires Solana devnet payment via the Latinum Wallet MCP server.
+A minimal Model Context Protocol (MCP) tool that provides real-time weather information for any city. Access to forecasts is paywalled via the Latinum Wallet MCP server, requiring Solana Devnet payment — except for Dublin, which is available for free.
 
 ## 🔧 Installation
 
