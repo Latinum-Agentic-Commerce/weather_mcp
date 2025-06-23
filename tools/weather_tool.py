@@ -8,22 +8,28 @@ from mcp.server.lowlevel import Server
 from config import SELLER_WALLET
 from utils.utils import fetch_weather
 
-FACILITATOR_URL = "http://latinum.ai/api/solana_facilitator"
+FACILITATOR_URL = "http://facilitator.latinum.ai/api/facilitator"
 PRICE_LAMPORTS = 50
 
 async def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
     print(f"get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
 
     if city.lower() != "dublin":
-        res = requests.post(FACILITATOR_URL, json={
-            "signedTransactionB64": signed_b64_payload,
-            "expectedRecipient": SELLER_WALLET,
-            "expectedAmountLamports": PRICE_LAMPORTS
-        })
-        if res.status_code != 200 or not res.json().get("allowed"):
+        try:
+            res = requests.post(FACILITATOR_URL, json={
+                "chain": "solana",
+                "signedTransactionB64": signed_b64_payload,
+                "expectedRecipient": SELLER_WALLET,
+                "expectedAmountLamports": PRICE_LAMPORTS
+            })
+            data = res.json() 
+        except Exception as e:
+            return {"success": False, "message": f"❌ Facilitator error: {str(e)}"}
+
+        if res.status_code == 402:
             return {
                 "success": False,
-                "message": res.json().get("error")
+                "message": data.get("error", "❌ Payment required or validation failed.")
             }
 
     weather_message = await fetch_weather(city)
