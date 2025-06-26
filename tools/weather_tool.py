@@ -9,7 +9,10 @@ from config import SELLER_WALLET
 from utils.utils import fetch_weather
 
 FACILITATOR_URL = "http://facilitator.latinum.ai/api/facilitator"
-PRICE_LAMPORTS = 50
+# FACILITATOR_URL = "http://127.0.0.1:3000/api/facilitator"
+MINT_ADDRESS = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" # USDC
+NETWORK = "mainnet"
+PRICE_ATOMIC_AMOUNT = 100000 # 0.1 USDC
 
 async def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> dict:
     print(f"get_weather called with: city={city}, signedTransactionB64={'yes' if signed_b64_payload else 'no'}")
@@ -20,7 +23,9 @@ async def get_weather(city: str, signed_b64_payload: Optional[str] = None) -> di
                 "chain": "solana",
                 "signedTransactionB64": signed_b64_payload,
                 "expectedRecipient": SELLER_WALLET,
-                "expectedAmountLamports": PRICE_LAMPORTS
+                "expectedAmountAtomic": PRICE_ATOMIC_AMOUNT,
+                "network": NETWORK,
+                "mint": MINT_ADDRESS,
             })
             data = res.json() 
         except Exception as e:
