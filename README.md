@@ -2,37 +2,18 @@
 
 A minimal Model Context Protocol (MCP) tool that provides real-time weather information for any city. Access to forecasts is paywalled via the Latinum Wallet MCP server, requiring Solana Devnet payment — except for Dublin, which is available for free.
 
-## 🔧 Installation
+# 🔧 Developper testing
+To install your local build as a CLI for testing with Claude:
 
 ```bash
-git clone https://github.com/dennj/weather_mcp.git
+git clone https://github.com/Latinum-Agentic-Commerce/latinum-wallet-mcp.git
 cd weather_mcp
 python3 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
+pip install --upgrade pip setuptools wheel
+pip install --upgrade --upgrade-strategy eager -r requirements.txt
+pip install --editable .
 ```
-
-## ⚙️ Configuration
-
-Create a `.env` file in the project root:
-
-```ini
-# .env
-SELLER_WALLET=3BMEwjrn9gBfSetARPrAK1nPTXMRsvQzZLN1n4CYjpcU
-```
-
-* `SELLER_WALLET`: The Solana devnet public address that will receive payments.
-
-## 🚀 Run Locally
-
-```bash
-python server_stdio.py
-```
-
-Claude will detect the tool when properly configured.
-
-## 🧠 Claude Integration
 
 Edit your Claude Desktop config:
 
@@ -46,7 +27,7 @@ Edit your Claude Desktop config:
       "weather_mcp": {
           "command": "/Users/{YOUR_USER}/workspace/weather_mcp/.venv/bin/python",
           "args": [
-              "/Users/{YOUR_USER}/workspace/weather_mcp/server_stdio.py"
+              "/Users/{YOUR_USER}/workspace/weather_mcp/weather_mcp/server_stdio.py"
           ]
       }
   }
@@ -54,6 +35,21 @@ Edit your Claude Desktop config:
 ```
 
 Then restart Claude.
+
+# 📑 PyPI Publishing
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+rm -rf dist/ build/ *.egg-info
+python3 -m build
+python3 -m twine upload dist/*
+pipx upgrade weather-mcp
+```
+
+See the output in a path like: https://pypi.org/project/weather-mcp/
+
 
 ## 💳 How It Works
 

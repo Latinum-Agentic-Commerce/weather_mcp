@@ -1,7 +1,7 @@
-# run_sse.py
+# server_sse.py
 
 from fastapi import FastAPI
-from tools.weather_tool import build_weather_mcp
+from weather_mcp.weather import build_weather_mcp
 from mcp.server.sse import sse_app
 from mcp.server.models import InitializationOptions
 from mcp.server.lowlevel import NotificationOptions

@@ -2,4 +2,6 @@ mcp
 google-adk
 python-dotenv
 aiohttp
+build
+twine
 deprecated # needed by Google ADK but not in requirments

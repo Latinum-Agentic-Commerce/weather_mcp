@@ -1,9 +1,9 @@
-# run_stdio.py
+# server_stdio.py
 
 import asyncio
 from mcp.server.models import InitializationOptions
 import mcp.server.stdio
-from tools.weather_tool import build_weather_mcp
+from weather_mcp.weather import build_weather_mcp
 from mcp.server.lowlevel import NotificationOptions
 
 async def run():
@@ -21,5 +21,8 @@ async def run():
             )
         )
 
-if __name__ == "__main__":
+def main():
     asyncio.run(run())
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,22 @@
+[project]
+name = "weather-mcp"
+version = "0.0.1"
+description = "Template for MCP tool"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp",
+    "google-adk",
+    "python-dotenv",
+    "deprecated"
+]
+
+[project.scripts]
+weather-mcp = "weather_mcp.server_stdio:main"
+
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["weather_mcp"]
